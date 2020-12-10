@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Livewire\ContactIndex;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'AuthController@showFormLogin')->name('login');
@@ -35,4 +36,7 @@ Route::group(['middleware' => 'auth'], function () {
     //user
     Route::get('/user', 'UserController@index')->name('user');
     Route::put('{user}', 'UserController@aktivasi');
+
+    //contact
+    Route::get('/contact', 'ContactController@index')->name('contact');
 });

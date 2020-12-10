@@ -24,6 +24,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="{{ route('contact') }}" class="nav-link {{ request()->is('contact') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-user"></i>
+                        <p>Livewire</p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{ route('mutation') }}" class="nav-link {{ request()->is('mutation') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-desktop"></i>
                         <p>Mutations</p>
