@@ -15,9 +15,16 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('logout', 'AuthController@logout')->name('logout');
 
     //mutations
+    Route::get('/mutation/funds', 'MutationController@funds')->name('mutation/v_funds');
+    #Route::get('/mutation/{account}/{slug}/{id}', 'MutationController@fundsedit');
+    Route::get('/mutation/{id}/{slug}', 'MutationController@fundsedit');
+    Route::get('/mutasi/{bank:id}/debit', 'MutationController@debit')->name('mutation.debit');
+    Route::get('/mutasi/{bank:id}/credit', 'MutationController@credit')->name('mutation.credit');
+    Route::post('/mutation', 'MutationController@store');
+    Route::post('/mutation/credit', 'MutationController@storeCredit');
+
     Route::get('/mutation', 'MutationController@index')->name('mutation');
     Route::get('/mutation/create', 'MutationController@create')->name('mutation.create');
-    Route::post('/mutation', 'MutationController@store');
     Route::get('/mutasi-bca/{id}', 'MutationController@showbank')->name('mutation.m_bca');
     Route::get('/mutasi-bni/{id}', 'MutationController@showbank')->name('mutation.m_bni');
     Route::get('/mutasi-cimb/{id}', 'MutationController@showbank')->name('mutation.m_cimb');

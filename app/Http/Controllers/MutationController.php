@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\{Mutation, Bank};
+use App\{Account, Mutation, Bank, User};
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 #use Illuminate\Support\Facades\Session;
@@ -78,29 +78,71 @@ class MutationController extends Controller
      */
     public function store(Request $request)
     {
-        #dd($request);
+
+
         $messages = [
-            'bank_id.required'         => 'Sumber Dana Harus Diisi',
-            'user_id.required'         => 'Nama Harus Diisi',
+            'rek_tujuan.required'         => 'Rek Tujuan Harus Diisi',
             'description.required'     => 'Deskripsi Harus Diisi',
             'debit.required'           => 'Debit Harus Diisi',
-            'credit.required'          => 'Kredit Harus Diisi',
             'date.required'            => 'Tanggal harus diisi',
         ];
 
         //buat validasi form
         $request->validate([
-            'bank_id'      => 'required',
-            'user_id'      => 'required',
+            'rek_tujuan'      => 'required',
             'description'      => 'required',
             'debit'      => 'required',
-            'credit'      => 'required',
             'date'        => 'required',
         ], $messages);
         $nominal_debit    = str_replace(",", "", $request->debit);
-        $nominal_kredit    = str_replace(",", "", $request->credit);
+        #$nominal_kredit    = str_replace(",", "", $request->credit);
+        $nominal_kredit    = $request->nominal_kredit;
+        #$rek_tujuan    = $request->rek_tujuan;
 
-        Mutation::create([
+
+        $id    =  $request->bank_id;
+        $slug  =  $request->slug;
+
+        $cek_sum_credit = Mutation::where([
+            ['bank_id', '=', $id],
+            ['user_id', '=', Auth::user()->id],
+        ])->sum('credit');
+
+        if ($nominal_debit < $cek_sum_credit) {
+
+            $data = [
+                [
+                    //pendebetan
+                    'bank_id'       => $request->bank_id,
+                    'user_id'       => $request->user_id,
+                    'description'   => $request->description,
+                    'debit'         => $nominal_debit,
+                    'credit'        => $nominal_kredit,
+                    'date'          => $request->date,
+                    'created_at' =>  \Carbon\Carbon::now(),
+                    'updated_at' => \Carbon\Carbon::now(),
+
+                ],
+                [
+                    //penambahan
+                    'bank_id'       => $request->rek_tujuan,
+                    'user_id'       => $request->user_id,
+                    'description'   => $request->description,
+                    'debit'         => $nominal_kredit,
+                    'credit'        => $nominal_debit,
+                    'date'          => $request->date,
+                    'created_at' =>  \Carbon\Carbon::now(),
+                    'updated_at' => \Carbon\Carbon::now(),
+                ],
+            ];
+            Mutation::insert($data);
+            return redirect('/mutation/' . $id . '/' . $slug)->with('sukses', 'Data Berhasil DiSimpan.');
+        } else {
+            return redirect('/mutation/' . $id . '/' . $slug)->with('gagal', 'Data Gagal DiSimpan.');
+        }
+        /* atau bisa juga dengan cara eloquent */
+        /*Mutation::create([
+            'account_id'       => $request->account_id,
             'bank_id'       => $request->bank_id,
             'user_id'       => $request->user_id,
             'description'   => $request->description,
@@ -108,7 +150,52 @@ class MutationController extends Controller
             'credit'        => $nominal_kredit,
             'date'          => $request->date,
         ]);
-        return redirect('/mutation')->with('sukses', 'Data Berhasil DiSimpan.');
+        Mutation::create([
+            'account_id'       => $request->account_id,
+            'bank_id'       => $rek_tujuan,
+            'user_id'       => $request->user_id,
+            'description'   => $request->description,
+            'debit'         => $nominal_kredit,
+            'credit'        => $nominal_debit,
+            'date'          => $request->date,
+        ]);*/
+    }
+
+    public function storeCredit(Request $request)
+    {
+        #dd($request);
+        $messages = [
+            'description.required'     => 'Deskripsi Harus Diisi',
+            'credit.required'           => 'Credit Harus Diisi',
+            'date.required'            => 'Tanggal harus diisi',
+        ];
+
+        //buat validasi form
+        $request->validate([
+            'description'      => 'required',
+            'credit'      => 'required',
+            'date'        => 'required',
+        ], $messages);
+
+        $nominal_credit    = str_replace(",", "", $request->credit);
+        #$nominal_kredit    = str_replace(",", "", $request->credit);
+        $nominal_debit    = $request->nominal_debit;
+        #$rek_tujuan    = $request->rek_tujuan;
+
+
+        $id    =  $request->bank_id;
+        $slug  =  $request->slug;
+
+        Mutation::create([
+            'bank_id'       => $request->bank_id,
+            'user_id'       => $request->user_id,
+            'description'   => $request->description,
+            'debit'         => $nominal_debit,
+            'credit'        => $nominal_credit,
+            'date'          => $request->date,
+        ]);
+
+        return redirect('/mutation/' . $id . '/' . $slug)->with('sukses', 'Data Berhasil DiSimpan.');
     }
 
     /**
@@ -372,5 +459,96 @@ class MutationController extends Controller
                 'last_mutasi_credit' => $last_mutasi_credit
             ]);
         }
+    }
+
+    public function funds()
+    {
+        #$banks = Bank::whereNotIn('id', [7, 8, 9, 10])->get();
+        $accounts = Account::where([
+            ['user_id', '=', Auth::user()->id],
+        ])->get();
+        return view('mutation.v_funds', [
+            'accounts' => $accounts
+        ]);
+    }
+
+    public function fundsedit($id, $slug)
+    {
+        $cek_sum_debit = Mutation::where([
+            ['bank_id', '=', $id],
+            ['user_id', '=', Auth::user()->id],
+        ])->sum('debit');
+
+        $cek_sum_credit = Mutation::where([
+            ['bank_id', '=', $id],
+            ['user_id', '=', Auth::user()->id],
+        ])->sum('credit');
+
+        $last_mutasi_debit = Mutation::where([
+            ['bank_id', '=', $id],
+            ['user_id', '=', Auth::user()->id],
+            ['debit', '=', 0],
+        ])->max('created_at');
+
+        $last_mutasi_credit = Mutation::where([
+            ['bank_id', '=', $id],
+            ['user_id', '=', Auth::user()->id],
+            ['credit', '=', 0],
+        ])->max('created_at');
+
+        $cek_sum_debit_month = Mutation::where([
+            ['bank_id', '=', $id],
+            ['user_id', '=', Auth::user()->id],
+        ])
+            ->whereYear('date', Carbon::now()->year)
+            ->whereMonth('date', Carbon::now()->month)
+            ->sum('debit');
+
+        $cek_sum_credit_month = Mutation::where([
+            ['bank_id', '=', $id],
+            ['user_id', '=', Auth::user()->id],
+        ])
+            ->whereYear('date', Carbon::now()->year)
+            ->whereMonth('date', Carbon::now()->month)
+            ->sum('credit');
+
+        $mutations = Mutation::where([
+            ['bank_id', '=', $id],
+            ['user_id', '=', Auth::user()->id],
+        ])
+            ->orderByRaw('created_at DESC')
+            ->get();
+
+        return view('mutation.m_banking', [
+            #'account' => $account,
+            'banks' => Bank::get(),
+            'users' => User::get(),
+            'cek_sum_debit' => $cek_sum_debit,
+            'cek_sum_credit' => $cek_sum_credit,
+            'cek_sum_debit_month' => $cek_sum_debit_month,
+            'cek_sum_credit_month' => $cek_sum_credit_month,
+            'last_mutasi_debit' => $last_mutasi_debit,
+            'last_mutasi_credit' => $last_mutasi_credit,
+            'slug' => $slug,
+            'id' => $id,
+            'mutations' => $mutations,
+
+        ]);
+    }
+
+    public function debit(bank $bank)
+    {
+        return view('mutation.debit', [
+            'banks' => Bank::get(),
+            'account' => $bank,
+        ]);
+    }
+
+    public function credit(bank $bank)
+    {
+        return view('mutation.credit', [
+            'banks' => Bank::get(),
+            'account' => $bank,
+        ]);
     }
 }

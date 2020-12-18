@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Mutation extends Model
 {
+
     protected $fillable = [
         'bank_id',
         'user_id',

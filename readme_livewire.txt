@@ -15,5 +15,10 @@
 	# php artisan livewire:make ContactCreate (untuk proses create)
 - untuk mengirimkan/ parsing data gunakan 
 	<livewire:contact-create :contacts="$contacts"></livewire:contact-create> (props)
-	# perhatikan file contact-index.blade.php
-	# contactcreate.php
+	 # contact-create(see file)
+
+######### proses update data ###########
+-membuat component create
+	# php artisan livewire:make ContactUpdate (untuk proses edit/ update)
+	# contact-update.blade.php (see file)
+

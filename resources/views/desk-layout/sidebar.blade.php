@@ -35,6 +35,13 @@
                         <p>Mutations</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('mutation/v_funds') }}" class="nav-link {{ request()->is('mutation/funds') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-money-bill-alt"></i>
+                        <p>Funds</p>
+                    </a>
+                </li>
+
 
 
                 <li class="nav-header">SOURCE FUND</li>

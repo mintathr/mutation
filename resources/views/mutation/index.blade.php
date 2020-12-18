@@ -101,9 +101,7 @@
             <table id="example1" class="table table-bordered table-striped">
                 <thead>
                     <tr>
-                        <th>
-                            #
-                        </th>
+                        <th>No</th>
                         <th>Sumber Dana</th>
                         <th>
                             Keterangan

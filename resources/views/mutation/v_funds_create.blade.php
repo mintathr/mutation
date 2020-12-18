@@ -1,5 +1,5 @@
 @extends('desk-layout.main')
-@section('title', 'Create')
+@section('title', 'Create' .{{ $tes }})
 @section('subtitle', 'Create Mutasi')
 @section('content')
 
@@ -12,10 +12,9 @@
                     <i class="fas fa-minus"></i></button>
             </div>
         </div>
-        <form role="form" method="post" action="/mutation">
+        <form role="form" method="post" action="/mutation" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-            <input type="hidden" name="account_id" value="2">
             <div class="card-body">
                 <div class="form-group">
                     <label>Sumber Dana</label>

@@ -4,19 +4,18 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Bank extends Model
+class Account extends Model
 {
     protected $fillable = [
+        'bank_id',
         'user_id',
         'no_rekening',
-        'name',
-        'slug',
-        'file_img',
     ];
 
-    public function Mutations()
+
+    public function Bank()
     {
-        return $this->hasMany(Mutation::class);
+        return $this->belongsTo(Bank::class);
     }
 
     public function User()

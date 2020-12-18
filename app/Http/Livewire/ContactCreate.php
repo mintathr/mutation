@@ -18,6 +18,17 @@ class ContactCreate extends Component
 
     public function store()
     {
+        $messages = [
+            'name.required'         => 'Nama Harus Diisi',
+            'name.min'         => 'Min 3 karakter',
+            'phone.required'         => 'Phone Harus Diisi',
+            'phone.max'     => 'Max 15 karakter',
+        ];
+        $this->validate([
+            'name' => 'required|min:3',
+            'phone' => 'required|max:15',
+        ], $messages);
+
         $contact = Contact::create([
             'name' => $this->name,
             'phone' => $this->phone
