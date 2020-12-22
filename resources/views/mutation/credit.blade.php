@@ -1,10 +1,10 @@
 @extends('desk-layout.main')
-@section('title', 'Credit ' .$account->name)
-@section('subtitle', 'Tambah Dana ' .$account->name)
+@section('title', 'Top Up ' .$account->name)
+@section('subtitle', 'Top Up ' .$account->name)
 @section('content')
 
 <section class="content">
-    <div class="card card-primary">
+    <div class="card card-success">
         <div class="card-header">
             <h3 class="card-title">Form Terima Dana</h3>
             <div class="card-tools">
@@ -52,8 +52,13 @@
             <!-- /.card-body -->
             <!-- /.card -->
             <div class="card-footer col-mb-3">
+                <div class="float-left">
+                    <button onclick="window.location.href='{{ url()->previous() }}';" type="button" class="btn btn-info"><i class="fa fa-arrow-left"></i>
+                        Back
+                    </button>
+                </div>
                 <div class="float-right">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmation-modal"><i class="far fa-edit"></i>
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#confirmation-modal"><i class="far fa-edit"></i>
                         Send
                     </button>
                 </div>

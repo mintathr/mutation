@@ -1,39 +1,26 @@
 @extends('desk-layout.main')
-@section('title', 'Debit ' .$account->name)
-@section('subtitle', 'Transfer Rekening Dari ' .$account->name)
+@section('title', 'Payment ' .$account->name)
+@section('subtitle', 'Pembayaran Dari ' .$account->name)
 @section('content')
 
 <section class="content">
-    <div class="card card-primary">
+    <div class="card card-danger">
         <div class="card-header">
-            <h3 class="card-title">Form Transfer</h3>
+            <h3 class="card-title">Form Pembayaran</h3>
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                     <i class="fas fa-minus"></i></button>
             </div>
         </div>
-        <form role="form" method="post" action="/mutation" enctype="multipart/form-data">
+        <form role="form" method="post" action="/mutation/bayar" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
             <input type="hidden" name="bank_id" value="{{ $account->id }}">
             <input type="hidden" name="bank_name" value="{{ $account->name }}">
             <input type="hidden" name="slug" value="{{ $account->slug }}">
             <input type="hidden" name="nominal_kredit" value="0">
+            <input type="hidden" name="rek_tujuan" value="15">
             <div class="card-body">
-                <div class="form-group">
-                    <label>Rekening Tujuan</label>
-                    <select name="rek_tujuan" id="rek_tujuan" class="form-control">
-                        <option disabled selected>--Pilih--</option>
-                        @foreach($banks as $bank)
-                        <option value="{{ $bank->id }}">{{ $bank->name }}</option>
-                        @endforeach
-                    </select>
-                    @error('bank')
-                    <div class="text-danger mt-2">
-                        {{ $message }}
-                    </div>
-                    @enderror
-                </div>
                 <div class="form-group">
                     <label for="description">Keterangan</label>
                     <input type="text" name="description" id="description" class="form-control @error('description') is-invalid @enderror" oninput="this.value=this.value.replace(/[^A-Za-z0-9 ]/g,'');" placeholder="Keterangan" value="{{ old('description') }}">
@@ -44,7 +31,7 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="debit">Debit</label>
+                    <label for="debit">Biaya</label>
                     <input type="text" name="debit" id="nominal_debit" class="form-control @error('debit') is-invalid @enderror" oninput="this.value=this.value.replace(/[^0-9]/g,'');" placeholder="Debit" value="{{ old('debit') }}">
                     @error('debit')
                     <div class="invalid-feedback">
@@ -73,7 +60,7 @@
                     </button>
                 </div>
                 <div class="float-right">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmation-modal"><i class="far fa-edit"></i>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmation-modal"><i class="far fa-edit"></i>
                         Send
                     </button>
                 </div>
@@ -82,7 +69,7 @@
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-body text-center font-18">
-                                <h4 class="padding-top-30 mb-30 weight-500">Anda yakin transfer dana?</h4>
+                                <h4 class="padding-top-30 mb-30 weight-500">yakin bayar?</h4>
                                 <div class="padding-bottom-30 row" style="max-width: 170px; margin: 0 auto;">
                                     <div class="col-6">
                                         <button type="button" class="btn btn-secondary border-radius-100 btn-block confirmation-btn" data-dismiss="modal"><i class="fa fa-times"></i></button>

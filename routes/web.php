@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Livewire\ContactIndex;
+use App\Http\Livewire\BankIndex;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'AuthController@showFormLogin')->name('login');
@@ -20,8 +21,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/mutation/{id}/{slug}', 'MutationController@fundsedit');
     Route::get('/mutasi/{bank:id}/debit', 'MutationController@debit')->name('mutation.debit');
     Route::get('/mutasi/{bank:id}/credit', 'MutationController@credit')->name('mutation.credit');
+    Route::get('/mutasi/{bank:id}/bayar', 'MutationController@bayar')->name('mutation.bayar');
     Route::post('/mutation', 'MutationController@store');
     Route::post('/mutation/credit', 'MutationController@storeCredit');
+    Route::post('/mutation/bayar', 'MutationController@storeBayar');
 
     Route::get('/mutation', 'MutationController@index')->name('mutation');
     Route::get('/mutation/create', 'MutationController@create')->name('mutation.create');
@@ -39,6 +42,16 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/mutasi-gopay/{id}', 'MutationController@showbank')->name('mutation.m_gopay');
     Route::get('/mutasi-ovo/{id}', 'MutationController@showbank')->name('mutation.m_ovo');
     Route::get('/mutasi-shopee-pay/{id}', 'MutationController@showbank')->name('mutation.m_shopee_pay');
+
+    //bank
+    Route::get('/banks', function () {
+        return view('bank.lw-index');
+    });
+
+    //account
+    Route::get('/account', function () {
+        return view('account-merchant');
+    });
 
     //user
     Route::get('/user', 'UserController@index')->name('user');

@@ -24,11 +24,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('contact') }}" class="nav-link {{ request()->is('contact') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-user"></i>
-                        <p>Livewire</p>
+                    <a href="/account" class="nav-link {{ request()->is('account') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-money-check-alt"></i>
+                        <p>Account</p>
                     </a>
                 </li>
+
                 <li class="nav-item">
                     <a href="{{ route('mutation') }}" class="nav-link {{ request()->is('mutation') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-desktop"></i>
@@ -161,6 +162,21 @@
 
                 @if(auth()->user()->role == 'admin')
                 <li class="nav-header">ADMIN</li>
+
+                <li class="nav-item">
+                    <a href="/banks" class="nav-link {{ request()->is('banks') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-building"></i>
+                        <p>Bank</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('contact') }}" class="nav-link {{ request()->is('contact') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-user"></i>
+                        <p>Livewire</p>
+                    </a>
+                </li>
+
                 <li class="nav-item">
                     <a href="{{ route('user') }}" class="nav-link {{ request()->is('user') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-users"></i>

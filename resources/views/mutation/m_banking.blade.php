@@ -82,7 +82,7 @@
 
 <div class="row">
     <div class="col">
-        <div class="col-md-5 float-left">
+        <div class="col-sm-6 col-md-4 float-sm-left">
             <div class="card">
                 <div class="card-body">
                     <a href="/mutasi/{{ $id }}/debit"><img src="/assets-template/img/bank_transfer.svg" class="card-img-top" alt="..."></a>
@@ -90,11 +90,19 @@
             </div>
         </div>
 
-        <div class="col-md-5 float-right">
+        <div class="col-sm-6 col-md-4 float-left">
             <div class="card">
                 <div class="card-body">
-                    <a href="/mutasi/{{ $id }}/credit"><img src="/assets-template/img/terima_uang.svg" class="card-img-top" alt="..."></a>
+                    <a href="/mutasi/{{ $id }}/credit"><img src="/assets-template/img/terima_uang.svg" class="card-img-top" alt="bayar"></a>
                 </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4 float-left">
+            <div class="card">
+                <div class="card-body">
+                    <a href="/mutasi/{{ $id }}/bayar"><img src="/assets-template/img/pembayaran.png" class="card-img-top" alt="..."></a>
+                </div>
+                <!-- <div class="card-link mt-5" style="text-align: center;">Bayar</div> -->
             </div>
         </div>
         <!--<div class="col-md-4 float-right">
@@ -105,7 +113,7 @@
             </div>
         </div>-->
     </div>
-    <div class="col-lg-8">
+    <div class="col-lg-9">
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title"> Tabel {{ $slug }} </h3>

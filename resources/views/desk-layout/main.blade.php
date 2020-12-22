@@ -24,8 +24,8 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="/assets-template/css/adminlte.min.css">
     <!-- Select2 -->
-    <!--<link rel="stylesheet" href="/assets-template/plugins/select2/css/select2.min.css">
-    <link rel="stylesheet" href="/assets-template/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">-->
+    <link rel="stylesheet" href="/assets-template/css/select2.min.css">
+    <link rel="stylesheet" href="/assets-template/css/select2-bootstrap4.min.css">
     <!-- daterange picker -->
     <!--<link rel="stylesheet" href="/assets-template/plugins/daterangepicker/daterangepicker.css">-->
     <!-- overlayScrollbars -->
@@ -38,13 +38,14 @@
     <!-- SweetAlert2 -->
     <link rel="stylesheet" href="/assets-template/css/bootstrap-4.min.css">
     <!-- Toastr -->
-    <!--<link rel="stylesheet" href="/assets-template/plugins/toastr/toastr.min.css">-->
+    <link rel="stylesheet" href="/assets-template/toastr/toastr.min.css">
     <!-- DataTables -->
     <link rel="stylesheet" href="/assets-template/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="/assets-template/css/responsive.bootstrap4.min.css">
 
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    @include('sweetalert::alert')
     @livewireStyles
 </head>
 
@@ -154,7 +155,7 @@
     <!-- AdminLTE for demo purposes -->
     <!--<script src="/assets-template/dist/js/demo.js"></script>-->
     <!-- Select2 -->
-    <!--<script src="/assets-template/plugins/select2/js/select2.full.min.js"></script>-->
+    <script src="/assets-template/js/select2.full.min.js"></script>
     <!-- date-range-picker -->
     <!--<script src="/assets-template/plugins/daterangepicker/daterangepicker.js"></script>-->
     <!-- ChartJS -->
@@ -164,7 +165,7 @@
     <!-- SweetAlert2 -->
     <script src="/assets-template/js/sweetalert2.min.js"></script>
     <!-- Toastr -->
-    <!--<script src="/assets-template/plugins/toastr/toastr.min.js"></script>-->
+    <script src="/assets-template/toastr/toastr.min.js"></script>
     <script src="/assets-template/js/bootstrap-datepicker-1.8.0.min.js"></script>
     <script src="/assets-template/js/2.0.0-autoNumeric.min.js" type="text/javascript"></script>
     <!-- DataTables -->
@@ -173,8 +174,21 @@
     <!--<script src="../../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
     <script src="../../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>-->
 
+    <script type="text/javascript">
+        $(document).ready(function() {
+            bsCustomFileInput.init();
+        });
+    </script>
     <script>
         $(function() {
+            //Initialize Select2 Elements
+            $('.select2').select2()
+
+            //Initialize Select2 Elements
+            $('.select2bs4').select2({
+                theme: 'bootstrap4'
+            })
+
             $("#example1").DataTable({
                 "responsive": true,
                 "autoWidth": false,
