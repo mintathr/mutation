@@ -18,7 +18,7 @@
         <div class="col-md-3 justify-content-center">
             <div class="card">
                 <div class="card-body">
-                    <a href="/mutation/{{ Crypt::encryptString($account->bank->id) }}/{{ $account->bank->name }}"><img src="/assets-template/img/{{ $account->bank->file_img }}" class="card-img-top" alt="..."></a>
+                    <a href="/mutation/{{ Crypt::encryptString($account->bank->id) }}/{{ $account->bank->slug }}"><img src="/storage/{{ $account->bank->file_img }}" class="card-img-top" alt="..."></a>
                 </div>
             </div>
         </div>

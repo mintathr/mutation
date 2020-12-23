@@ -1,6 +1,6 @@
 @extends('desk-layout.main')
-@section('title', $slug)
-@section('subtitle', 'Mutasi ' .$slug)
+@section('title', $bank->name)
+@section('subtitle', 'Mutasi ' .$bank->name)
 @section('content')
 
 <style>
@@ -15,13 +15,11 @@
 </style>
 
 <div class="container-fluid">
-    <!-- Small boxes (Stat box) -->
     <div class="row">
         <div class="col-lg-3 col-12">
-            <!-- small box -->
             <div class="small-box bg-success">
                 <div class="inner">
-                    <h3>Rp. {{ number_format($cek_sum_credit) }}</h3>
+                    <h3>Rp. {{ number_format($saldo_all) }}</h3>
 
                     <p>SALDO KREDIT</p>
                 </div>
@@ -51,7 +49,7 @@
             <!-- small box -->
             <div class="small-box bg-info">
                 <div class="inner">
-                    <h3>Rp. {{ number_format($cek_sum_credit_month) }}</h3>
+                    <h3>Rp. {{ number_format($saldo_bulan_ini) }}</h3>
 
                     <p>Saldo Kredit Bulan {{ now()->format('M') }}</p>
                 </div>
@@ -85,7 +83,7 @@
         <div class="col-sm-6 col-md-4 float-sm-left">
             <div class="card">
                 <div class="card-body">
-                    <a href="/mutasi/{{ $id }}/debit"><img src="/assets-template/img/bank_transfer.svg" class="card-img-top" alt="..."></a>
+                    <a href="/mutasi/{{ $bank->slug }}/transfer" data-toggle="tooltip" data-placement="top" title="Menu Transfer"><img src="/assets-template/img/bank_transfer.svg" class="card-img-top" alt="..."></a>
                 </div>
             </div>
         </div>
@@ -93,14 +91,23 @@
         <div class="col-sm-6 col-md-4 float-left">
             <div class="card">
                 <div class="card-body">
-                    <a href="/mutasi/{{ $id }}/credit"><img src="/assets-template/img/terima_uang.svg" class="card-img-top" alt="bayar"></a>
+                    <a href="/mutasi/{{ $bank->slug }}/topup" data-toggle="tooltip" data-placement="top" title="Menu Top Up"><img src="/assets-template/img/terima_uang.svg" class="card-img-top" alt="bayar"></a>
                 </div>
             </div>
         </div>
         <div class="col-sm-6 col-md-4 float-left">
             <div class="card">
                 <div class="card-body">
-                    <a href="/mutasi/{{ $id }}/bayar"><img src="/assets-template/img/pembayaran.png" class="card-img-top" alt="..."></a>
+                    <a href="/mutasi/{{ $bank->slug }}/bayar" data-toggle="tooltip" data-placement="top" title="Menu Bayar"><img src="/assets-template/img/pembayaran.png" class="card-img-top" alt="..."></a>
+                </div>
+                <!-- <div class="card-link mt-5" style="text-align: center;">Bayar</div> -->
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-md-4 float-left">
+            <div class="card">
+                <div class="card-body">
+                    <a href="/mutasi/{{ $bank->slug }}/tarik" data-toggle="tooltip" data-placement="top" title="Menu Tarik Tunai"><img src="/assets-template/img/tarik_tunai.png" class="card-img-top" alt="..."></a>
                 </div>
                 <!-- <div class="card-link mt-5" style="text-align: center;">Bayar</div> -->
             </div>
@@ -116,7 +123,7 @@
     <div class="col-lg-9">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title"> Tabel {{ $slug }} </h3>
+                <h3 class="card-title"> Tabel {{ $bank->name }} </h3>
                 <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                         <i class="fas fa-minus"></i></button>

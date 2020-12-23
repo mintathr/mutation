@@ -19,32 +19,25 @@ class AccountCreate extends Component
         $this->validate([
             'bank_id'  => 'required',
         ], $messages);
-        #$tes = $this->bank_id;
-        #dd($tes);
-        /* $data = [
-            ['user_id' => Auth::user()->id],
-            ['bank_id' => $this->bank_id],
-        ]; */
 
-        #Account::insert($data);
-        /* $user_id = Auth::user()->id;
-        foreach ($this->bank_id as $key => $value) {
-            $input['bank_id'] = $this->bank_id[$key];
-            # $input['user_id'] = $user_id[$key];
+        $this->account = Account::where('user_id', '=', Auth::user()->id)
+            ->where('bank_id', '=', $this->bank_id)
+            ->get();
+        if ($this->account->isEmpty()) {
+            $account = Account::create([
+                'bank_id'      => $this->bank_id,
+                'user_id'      => Auth::user()->id,
+            ]);
 
-            Account::create($input);
-        } */
-        #if ($this->bank_id == ) {
+            $this->resetInput();
 
-        $account = Account::create([
-            'bank_id'      => $this->bank_id,
-            'user_id'      => Auth::user()->id,
-        ]);
-
-        $this->resetInput();
-
-        //accountStored akan dibuatkan listeningnya didalam class accountindex.php
-        $this->emit('accountStored', $account);
+            $this->emit('accountStored', $account);
+            //accountStored akan dibuatkan listeningnya didalam class accountindex.php
+        } else {
+            $testing = 'testing';
+            #$testing = $this->emit('alert', ['type' => 'error', 'message' => 'Berhasil dul']);
+            $this->emit('accountCek', $testing);
+        }
     }
 
     public function render()

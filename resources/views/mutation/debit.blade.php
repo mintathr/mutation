@@ -1,5 +1,5 @@
 @extends('desk-layout.main')
-@section('title', 'Debit ' .$account->name)
+@section('title', 'Transfer ' .$account->name)
 @section('subtitle', 'Transfer Rekening Dari ' .$account->name)
 @section('content')
 
@@ -22,7 +22,7 @@
             <div class="card-body">
                 <div class="form-group">
                     <label>Rekening Tujuan</label>
-                    <select name="rek_tujuan" id="rek_tujuan" class="form-control">
+                    <select name="rek_tujuan" id="rek_tujuan" class="form-control select2bs4">
                         <option disabled selected>--Pilih--</option>
                         @foreach($banks as $bank)
                         <option value="{{ $bank->id }}">{{ $bank->name }}</option>
@@ -62,6 +62,8 @@
                     </div>
                     @enderror
                 </div>
+                <h6 style="font-style: italic; color:red;">* Rekening Tujuan adalah rekening anda sendiri, yang otomatis akan bertambah.</h6>
+                <h6 style="font-style: italic; color:red;">* Pilih Others bila Rekening Tujuan milik orang lain.</h6>
             </div>
 
             <!-- /.card-body -->

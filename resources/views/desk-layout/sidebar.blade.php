@@ -45,7 +45,7 @@
 
 
 
-                <li class="nav-header">SOURCE FUND</li>
+                <!-- <li class="nav-header">SOURCE FUND</li>
 
                 <li class="nav-item has-treeview 
                 {{ request()->is('mutasi-bca/1') ? 'menu-open' : '' }} 
@@ -157,7 +157,7 @@
                         </li>
 
                     </ul>
-                </li>
+                </li> -->
                 @endif
 
                 @if(auth()->user()->role == 'admin')

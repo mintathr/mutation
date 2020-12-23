@@ -6,11 +6,11 @@
         {{ session('sukses') }}
     </div>
     @endif
-    @if (session('update'))
-    <div class="alert alert-info alert-dismissible">
+    @if (session('gagal'))
+    <div class="alert alert-danger alert-dismissible">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-        <h5><i class="icon fas fa-info"></i> Sukses!</h5>
-        {{ session('update') }}
+        <h5><i class="icon fas fa-info"></i> Gagal!</h5>
+        {{ session('gagal') }}
     </div>
     @endif
     <livewire:account-create></livewire:account-create>
@@ -53,4 +53,6 @@
             </div>
         </div>
     </div>
+
+
 </div>

@@ -27,7 +27,7 @@
             <!-- small box -->
             <div class="small-box bg-success">
                 <div class="inner">
-                    <h3>Rp. {{ number_format($cek_sum_credit) }}</h3>
+                    <h3>Rp. {{ number_format($saldo_all) }}</h3>
 
                     <p>SALDO KREDIT</p>
                 </div>
@@ -57,7 +57,7 @@
             <!-- small box -->
             <div class="small-box bg-info">
                 <div class="inner">
-                    <h3>Rp. {{ number_format($cek_sum_credit_month) }}</h3>
+                    <h3>Rp. {{ number_format($saldo_bulan_ini) }}</h3>
 
                     <p>Saldo Kredit Bulan {{ now()->format('M') }}</p>
                 </div>
@@ -90,7 +90,7 @@
     <div class="card-header">
         <h3 class="card-title">Data Mutasi</h3>
         <div class="card-tools">
-            <a href="mutation/create" class="btn btn-primary btn-md"><i class="fa fa-plus"></i> Create</a>
+            <!-- <a href="mutation/create" class="btn btn-primary btn-md"><i class="fa fa-plus"></i> Create</a> -->
             <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                 <i class="fas fa-minus"></i></button>
         </div>

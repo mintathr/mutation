@@ -1,24 +1,24 @@
 @extends('desk-layout.main')
-@section('title', 'Top Up ' .$account->name)
-@section('subtitle', 'Top Up ' .$account->name)
+@section('title', 'Tarik Tunai ' .$account->name)
+@section('subtitle', 'Tarik Tunai ' .$account->name)
 @section('content')
 
 <section class="content">
     <div class="card card-success">
         <div class="card-header">
-            <h3 class="card-title">Form Terima Dana</h3>
+            <h3 class="card-title">Form Tarik Tunai</h3>
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                     <i class="fas fa-minus"></i></button>
             </div>
         </div>
-        <form role="form" method="post" action="/mutation/credit" enctype="multipart/form-data">
+        <form role="form" method="post" action="/mutation/tarik" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
             <input type="hidden" name="bank_id" value="{{ $account->id }}">
             <input type="hidden" name="bank_name" value="{{ $account->name }}">
             <input type="hidden" name="slug" value="{{ $account->slug }}">
-            <input type="hidden" name="nominal_debit" value="0">
+            <input type="hidden" name="nominal_kredit" value="0">
             <div class="card-body">
                 <div class="form-group">
                     <label for="description">Keterangan</label>
@@ -30,9 +30,9 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="credit">Credit</label>
-                    <input type="text" name="credit" id="nominal_credit" class="form-control @error('credit') is-invalid @enderror" oninput="this.value=this.value.replace(/[^0-9]/g,'');" placeholder="Credit" value="{{ old('credit') }}">
-                    @error('credit')
+                    <label for="debit">Debit</label>
+                    <input type="text" name="debit" id="nominal_debit" class="form-control @error('debit') is-invalid @enderror" oninput="this.value=this.value.replace(/[^0-9]/g,'');" placeholder="Debit" value="{{ old('debit') }}">
+                    @error('debit')
                     <div class="invalid-feedback">
                         {{ $message }}
                     </div>
@@ -68,7 +68,7 @@
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-body text-center font-18">
-                                <h4 class="padding-top-30 mb-30 weight-500">Anda yakin top up dana?</h4>
+                                <h4 class="padding-top-30 mb-30 weight-500">Anda yakin tarik tunai?</h4>
                                 <div class="padding-bottom-30 row" style="max-width: 170px; margin: 0 auto;">
                                     <div class="col-6">
                                         <button type="button" class="btn btn-secondary border-radius-100 btn-block confirmation-btn" data-dismiss="modal"><i class="fa fa-times"></i></button>

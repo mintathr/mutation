@@ -81,8 +81,7 @@
     </div>
 </div>
 
-<!--<livewire:contact-index></livewire:contact-index>
--->
+
 
 
 

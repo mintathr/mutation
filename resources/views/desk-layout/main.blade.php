@@ -45,12 +45,12 @@
 
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-    @include('sweetalert::alert')
     @livewireStyles
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
+        @include('sweetalert::alert')
 
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -174,6 +174,12 @@
     <!--<script src="../../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
     <script src="../../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>-->
 
+    <!-- <script>
+        window.livewire.on('alert', param => {
+            toastr[param['type']](param['message'], param['type']);
+        });
+    </script> -->
+
     <script type="text/javascript">
         $(document).ready(function() {
             bsCustomFileInput.init();
@@ -230,11 +236,14 @@
             todayHighlight: true,
         })
     </script>
+    <script>
+        window.livewire.on('alert', param => {
+            toastr[param['type']](param['message'], param['type']);
+        });
+    </script>
 
 
 
-
-    @include('sweetalert::alert')
     @livewireScripts
 </body>
 

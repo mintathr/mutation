@@ -9,7 +9,6 @@ class Account extends Model
     protected $fillable = [
         'bank_id',
         'user_id',
-        #'no_rekening',
     ];
 
 

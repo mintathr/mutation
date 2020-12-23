@@ -9,13 +9,13 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label>Nama Merchant</label>
-                            <select name="" wire:model="bank_id" id="bank" class="form-control select2bs4" style="width: 100%;">
+                            <select name="" wire:model="bank_id" id="bank" class="form-control" style="width: 100%;">
                                 <option disabled selected>--Pilih--</option>
-                                @foreach($accounts as $account)
-                                <option value="{{ $account->bank_id }}">{{ $account->bank->name }}</option>
+                                @foreach($banks as $bank)
+                                <option value="{{ $bank->id }}">{{ $bank->name }}</option>
                                 @endforeach
                             </select>
-                            @error('bank')
+                            @error('bank_id')
                             <div class="text-danger mt-2">
                                 {{ $message }}
                             </div>
@@ -35,5 +35,7 @@
             </div>
         </div>
     </div>
+
+
 
 </div>
