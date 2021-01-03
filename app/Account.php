@@ -9,6 +9,10 @@ class Account extends Model
     protected $fillable = [
         'bank_id',
         'user_id',
+        'no_rekening',
+        'name_account',
+        'flag',
+        'keterangan',
     ];
 
 

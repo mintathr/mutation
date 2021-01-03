@@ -105,7 +105,7 @@
         </div>
         <!-- /.content-wrapper -->
         <footer class="main-footer">
-            <strong>Copyright &copy; 2020<?= (date('Y') > 2019 ? ' - ' . date('Y') : '') ?> | RajaRenov | </strong> All rights
+            <strong>Copyright &copy; 2020<?= (date('Y') > 2019 ? ' - ' . date('Y') : '') ?> | Mutation | </strong> All rights
             reserved.
             <div class="float-right d-none d-sm-inline-block">
                 <b>Version</b> 1.0
@@ -192,6 +192,10 @@
 
             //Initialize Select2 Elements
             $('.select2bs4').select2({
+                theme: 'bootstrap4'
+            })
+
+            $('.select22bs4').select2({
                 theme: 'bootstrap4'
             })
 

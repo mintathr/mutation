@@ -1,38 +1,41 @@
 @extends('desk-layout.main')
-@section('title', 'Payment ' .$account->name)
-@section('subtitle', 'Pembayaran Dari ' .$account->name)
+@section('title', 'Bayar')
+@section('subtitle', 'Bayar')
 @section('content')
 
 <section class="content">
     <div class="card card-danger">
         <div class="card-header">
-            <h3 class="card-title">Form Pembayaran</h3>
+            <h3 class="card-title">Form Bayar</h3>
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                     <i class="fas fa-minus"></i></button>
             </div>
         </div>
-        <form role="form" method="post" action="/mutation/bayar" enctype="multipart/form-data">
+        <form role="form" method="post" action="/mutation/bayar">
             @csrf
             <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-            <input type="hidden" name="bank_id" value="{{ $account->id }}">
-            <input type="hidden" name="bank_name" value="{{ $account->name }}">
-            <input type="hidden" name="slug" value="{{ $account->slug }}">
-            <input type="hidden" name="nominal_kredit" value="0">
-            <input type="hidden" name="rek_tujuan" value="15">
+            <input type="hidden" name="nominal_credit" value="0">
+
             <div class="card-body">
                 <div class="form-group">
-                    <label for="description">Keterangan</label>
-                    <input type="text" name="description" id="description" class="form-control @error('description') is-invalid @enderror" oninput="this.value=this.value.replace(/[^A-Za-z0-9 ]/g,'');" placeholder="Keterangan" value="{{ old('description') }}">
-                    @error('description')
-                    <div class="invalid-feedback">
+                    <label>Dari Rekening</label>
+                    <select class="form-control select2bs4" name="account_id" style="width: 100%;">
+                        <option disabled selected>--Pilih--</option>
+                        @foreach($pribadis as $pribadi)
+                        <option value="{{ $pribadi->id }}">{{ $pribadi->name }} - {{ $pribadi->no_rekening }}</option>
+                        @endforeach
+                    </select>
+                    @error('account_id')
+                    <div class="text-danger mt-2">
                         {{ $message }}
                     </div>
                     @enderror
                 </div>
+
                 <div class="form-group">
-                    <label for="debit">Biaya</label>
-                    <input type="text" name="debit" id="nominal_debit" class="form-control @error('debit') is-invalid @enderror" oninput="this.value=this.value.replace(/[^0-9]/g,'');" placeholder="Debit" value="{{ old('debit') }}">
+                    <label for="debit">Nominal</label>
+                    <input type="text" name="debit" id="nominal_debit" class="form-control @error('debit') is-invalid @enderror" oninput="this.value=this.value.replace(/[^0-9]/g,'');" placeholder="Nominal" value="{{ old('debit') }}">
                     @error('debit')
                     <div class="invalid-feedback">
                         {{ $message }}
@@ -49,6 +52,17 @@
                     </div>
                     @enderror
                 </div>
+                <div class="form-group">
+                    <label for="description">Keterangan</label>
+                    <input type="text" name="description" id="description" class="form-control @error('description') is-invalid @enderror" oninput="this.value=this.value.replace(/[^A-Za-z0-9 ]/g,'');" placeholder="Keterangan" value="{{ old('description') }}">
+                    @error('description')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                    @enderror
+                </div>
+                <!-- <h6 style="font-style: italic; color:red;">* Rekening Tujuan adalah rekening anda sendiri, yang otomatis akan bertambah.</h6>
+                <h6 style="font-style: italic; color:red;">* Pilih Others bila Rekening Tujuan milik orang lain.</h6> -->
             </div>
 
             <!-- /.card-body -->
@@ -60,8 +74,8 @@
                     </button>
                 </div>
                 <div class="float-right">
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmation-modal"><i class="far fa-edit"></i>
-                        Send
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmation-modal"><i class="far fa-paper-plane"></i>
+                        Submit
                     </button>
                 </div>
 
@@ -69,7 +83,7 @@
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-body text-center font-18">
-                                <h4 class="padding-top-30 mb-30 weight-500">yakin bayar?</h4>
+                                <h4 class="padding-top-30 mb-30 weight-500">Anda yakin ingin bayar?</h4>
                                 <div class="padding-bottom-30 row" style="max-width: 170px; margin: 0 auto;">
                                     <div class="col-6">
                                         <button type="button" class="btn btn-secondary border-radius-100 btn-block confirmation-btn" data-dismiss="modal"><i class="fa fa-times"></i></button>

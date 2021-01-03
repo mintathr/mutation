@@ -23,10 +23,38 @@
                         <p>Home</p>
                     </a>
                 </li>
+
+
+                <!-- <li class="nav-item has-treeview 
+                {{ request()->is('account') ? 'menu-open' : '' }} 
+                ">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-list-ul"></i>
+                        <p>
+                            Rekening
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="/rekening-pribadi" class="nav-link {{ request()->is('rekening-pribadi') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Pribadi</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/account" class="nav-link {{ request()->is('account') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Others</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li> -->
+
                 <li class="nav-item">
-                    <a href="/account" class="nav-link {{ request()->is('account') ? 'active' : '' }}">
+                    <a href="/rekening" class="nav-link {{ request()->is('account') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-money-check-alt"></i>
-                        <p>Account</p>
+                        <p>Rekening</p>
                     </a>
                 </li>
 
@@ -38,10 +66,37 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('mutation/v_funds') }}" class="nav-link {{ request()->is('mutation/funds') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-money-bill-alt"></i>
+                        <i class="nav-icon fas fa-building"></i>
                         <p>Funds</p>
                     </a>
                 </li>
+
+                <li class="nav-header">Transaksi</li>
+                <li class="nav-item">
+                    <a href="/mutation/transfer" class="nav-link {{ request()->is('mutation.transfer') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-arrow-alt-circle-up"></i>
+                        <p>Transfer</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/mutation/bayar" class="nav-link {{ request()->is('mutation.bayar') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-credit-card"></i>
+                        <p>Bayar</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/mutation/penerimaan" class="nav-link {{ request()->is('penerimaan') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-arrow-alt-circle-down"></i>
+                        <p>Penerimaan</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/mutation/tarik-tunai" class="nav-link {{ request()->is('tarik-tunai') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-money-bill-alt"></i>
+                        <p>Tarik Tunai</p>
+                    </a>
+                </li>
+
 
 
 

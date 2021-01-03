@@ -1,10 +1,10 @@
 @extends('desk-layout.main')
-@section('title', 'Tarik Tunai ' .$account->name)
-@section('subtitle', 'Tarik Tunai ' .$account->name)
+@section('title', 'Tarik Tunai ' .$id_account->name)
+@section('subtitle', 'Tarik Tunai ' .$id_account->name)
 @section('content')
 
 <section class="content">
-    <div class="card card-success">
+    <div class="card card-danger">
         <div class="card-header">
             <h3 class="card-title">Form Tarik Tunai</h3>
             <div class="card-tools">
@@ -15,23 +15,15 @@
         <form role="form" method="post" action="/mutation/tarik" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-            <input type="hidden" name="bank_id" value="{{ $account->id }}">
-            <input type="hidden" name="bank_name" value="{{ $account->name }}">
-            <input type="hidden" name="slug" value="{{ $account->slug }}">
+            <input type="hidden" name="account_id" value="{{ $id_account->id }}">
+            <input type="hidden" name="bank_name" value="{{ $id_account->name }}">
+            <input type="hidden" name="slug" value="{{ $id_account->slug }}">
+            <input type="hidden" name="id" value="{{ $id }}">
             <input type="hidden" name="nominal_kredit" value="0">
             <div class="card-body">
                 <div class="form-group">
-                    <label for="description">Keterangan</label>
-                    <input type="text" name="description" id="description" class="form-control @error('description') is-invalid @enderror" oninput="this.value=this.value.replace(/[^A-Za-z0-9 ]/g,'');" placeholder="Keterangan" value="{{ old('description') }}">
-                    @error('description')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                    @enderror
-                </div>
-                <div class="form-group">
-                    <label for="debit">Debit</label>
-                    <input type="text" name="debit" id="nominal_debit" class="form-control @error('debit') is-invalid @enderror" oninput="this.value=this.value.replace(/[^0-9]/g,'');" placeholder="Debit" value="{{ old('debit') }}">
+                    <label for="debit">Nominal</label>
+                    <input type="text" name="debit" id="nominal_debit" class="form-control @error('debit') is-invalid @enderror" oninput="this.value=this.value.replace(/[^0-9]/g,'');" placeholder="Nominal" value="{{ old('debit') }}">
                     @error('debit')
                     <div class="invalid-feedback">
                         {{ $message }}
@@ -48,6 +40,15 @@
                     </div>
                     @enderror
                 </div>
+                <div class="form-group">
+                    <label for="description">Keterangan</label>
+                    <input type="text" name="description" id="description" class="form-control @error('description') is-invalid @enderror" oninput="this.value=this.value.replace(/[^A-Za-z0-9 ]/g,'');" placeholder="Keterangan" value="{{ old('description') }}">
+                    @error('description')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                    @enderror
+                </div>
             </div>
 
             <!-- /.card-body -->
@@ -59,8 +60,8 @@
                     </button>
                 </div>
                 <div class="float-right">
-                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#confirmation-modal"><i class="far fa-edit"></i>
-                        Send
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmation-modal"><i class="far fa-paper-plane"></i>
+                        Submit
                     </button>
                 </div>
 

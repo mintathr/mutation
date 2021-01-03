@@ -26,7 +26,7 @@
                 <div class="icon">
                     <i class="ion ion-arrow-up-b"></i>
                 </div>
-                <a href="#" class="small-box-footer">Last {{ $last_mutasi_credit }}</a>
+                <a href="#" class="small-box-footer">Last </a>
             </div>
         </div>
 
@@ -41,7 +41,7 @@
                 <div class="icon">
                     <i class="ion ion-arrow-down-b"></i>
                 </div>
-                <a href="#" class="small-box-footer">Last {{ $last_mutasi_debit }}</a>
+                <a href="#" class="small-box-footer">Last </a>
             </div>
         </div>
 
@@ -49,14 +49,14 @@
             <!-- small box -->
             <div class="small-box bg-info">
                 <div class="inner">
-                    <h3>Rp. {{ number_format($saldo_bulan_ini) }}</h3>
+                    <h3>Rp. {{ number_format($cek_sum_credit_month) }}</h3>
 
-                    <p>Saldo Kredit Bulan {{ now()->format('M') }}</p>
+                    <p>Total Penerimaan Bulan {{ now()->format('M') }}</p>
                 </div>
                 <div class="icon">
                     <i class="ion ion-arrow-up-b"></i>
                 </div>
-                <a href="#" class="small-box-footer">Last {{ $last_mutasi_credit }}</a>
+                <a href="#" class="small-box-footer">Last </a>
             </div>
         </div>
 
@@ -66,12 +66,12 @@
                 <div class="inner">
                     <h3>Rp. {{ number_format($cek_sum_debit_month) }}</h3>
 
-                    <p>Saldo Debit Bulan {{ now()->format('M') }}</p>
+                    <p>Total Pengeluaran Bulan {{ now()->format('M') }}</p>
                 </div>
                 <div class="icon">
                     <i class="ion ion-arrow-down-b"></i>
                 </div>
-                <a href="#" class="small-box-footer">Last {{ $last_mutasi_debit }}</a>
+                <a href="#" class="small-box-footer">Last </a>
             </div>
         </div>
 
@@ -83,7 +83,7 @@
         <div class="col-sm-6 col-md-4 float-sm-left">
             <div class="card">
                 <div class="card-body">
-                    <a href="/mutasi/{{ $bank->slug }}/transfer" data-toggle="tooltip" data-placement="top" title="Menu Transfer"><img src="/assets-template/img/bank_transfer.svg" class="card-img-top" alt="..."></a>
+                    <a href="/mutasi/{{ $bank->slug }}/transfer/{{ $id }}" data-toggle="tooltip" data-placement="top" title="Menu Transfer"><img src="/assets-template/img/bank_transfer.svg" class="card-img-top" alt="..."></a>
                 </div>
             </div>
         </div>
@@ -91,14 +91,14 @@
         <div class="col-sm-6 col-md-4 float-left">
             <div class="card">
                 <div class="card-body">
-                    <a href="/mutasi/{{ $bank->slug }}/topup" data-toggle="tooltip" data-placement="top" title="Menu Top Up"><img src="/assets-template/img/terima_uang.svg" class="card-img-top" alt="bayar"></a>
+                    <a href="/mutasi/{{ $bank->slug }}/topup/{{ $id }}" data-toggle="tooltip" data-placement="top" title="Menu Top Up"><img src="/assets-template/img/terima_uang.svg" class="card-img-top" alt="bayar"></a>
                 </div>
             </div>
         </div>
         <div class="col-sm-6 col-md-4 float-left">
             <div class="card">
                 <div class="card-body">
-                    <a href="/mutasi/{{ $bank->slug }}/bayar" data-toggle="tooltip" data-placement="top" title="Menu Bayar"><img src="/assets-template/img/pembayaran.png" class="card-img-top" alt="..."></a>
+                    <a href="/mutasi/{{ $bank->slug }}/bayar/{{ $id }}" data-toggle="tooltip" data-placement="top" title="Menu Bayar"><img src="/assets-template/img/pembayaran.png" class="card-img-top" alt="..."></a>
                 </div>
                 <!-- <div class="card-link mt-5" style="text-align: center;">Bayar</div> -->
             </div>
@@ -107,7 +107,7 @@
         <div class="col-sm-6 col-md-4 float-left">
             <div class="card">
                 <div class="card-body">
-                    <a href="/mutasi/{{ $bank->slug }}/tarik" data-toggle="tooltip" data-placement="top" title="Menu Tarik Tunai"><img src="/assets-template/img/tarik_tunai.png" class="card-img-top" alt="..."></a>
+                    <a href="/mutasi/{{ $bank->slug }}/tarik/{{ $id }}" data-toggle="tooltip" data-placement="top" title="Menu Tarik Tunai"><img src="/assets-template/img/tarik_tunai.png" class="card-img-top" alt="..."></a>
                 </div>
                 <!-- <div class="card-link mt-5" style="text-align: center;">Bayar</div> -->
             </div>
@@ -135,15 +135,11 @@
                     <table id="example1" class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th>
-                                    #
-                                </th>
-                                <th>
-                                    Keterangan
-                                </th>
+                                <th>#</th>
+                                <th>Tanggal</th>
+                                <th>Keterangan</th>
                                 <th>Debit</th>
                                 <th>Credit</th>
-                                <th>Tanggal</th>
 
                             </tr>
                         </thead>
@@ -154,6 +150,9 @@
                                     {{ $loop->iteration }}
                                 </td>
                                 <td>
+                                    {{ $mutation->date }}
+                                </td>
+                                <td>
                                     {{ $mutation->description }}
                                 </td>
                                 <td style="text-align: right;">
@@ -162,9 +161,7 @@
                                 <td style="text-align: right;">
                                     {{ number_format($mutation->credit) }}
                                 </td>
-                                <td>
-                                    {{ $mutation->date }}
-                                </td>
+
 
 
                             </tr>

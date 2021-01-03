@@ -57,9 +57,9 @@
             <!-- small box -->
             <div class="small-box bg-info">
                 <div class="inner">
-                    <h3>Rp. {{ number_format($saldo_bulan_ini) }}</h3>
+                    <h3>Rp. {{ number_format($cek_sum_credit_month) }}</h3>
 
-                    <p>Saldo Kredit Bulan {{ now()->format('M') }}</p>
+                    <p>Total Penerimaan Bulan {{ now()->format('M') }}</p>
                 </div>
                 <div class="icon">
                     <i class="ion ion-arrow-up-b"></i>
@@ -74,7 +74,7 @@
                 <div class="inner">
                     <h3>Rp. {{ number_format($cek_sum_debit_month) }}</h3>
 
-                    <p>Saldo Debit Bulan {{ now()->format('M') }}</p>
+                    <p>Total Pengeluaran Bulan {{ now()->format('M') }}</p>
                 </div>
                 <div class="icon">
                     <i class="ion ion-arrow-down-b"></i>
@@ -101,38 +101,36 @@
             <table id="example1" class="table table-bordered table-striped">
                 <thead>
                     <tr>
-                        <th>No</th>
+                        <th>Tanggal</th>
                         <th>Sumber Dana</th>
-                        <th>
-                            Keterangan
-                        </th>
                         <th>Debit</th>
                         <th>Credit</th>
-                        <th>Tanggal</th>
-
+                        <th>Keterangan</th>
+                        <th>Tujuan</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($mutations as $mutation)
                     <tr>
                         <td>
-                            {{ $loop->iteration }}
+                            {{ $mutation->date }}
                         </td>
                         <td>
-                            {{ $mutation->bank->name }}
+                            {{ $mutation->name }} - {{ $mutation->no_rekening }}
+                        </td>
+                        <td style="text-align: right;">
+                            {{ number_format($mutation->debit) }}
+                        </td>
+                        <td style="text-align: right;">
+                            {{ number_format($mutation->credit) }}
                         </td>
                         <td>
                             {{ $mutation->description }}
                         </td>
                         <td>
-                            {{ $mutation->debit }}
+                            {{ $mutation->bank_tujuan }} - {{ $mutation->no_rekening_tujuan }}
                         </td>
-                        <td>
-                            {{ $mutation->credit }}
-                        </td>
-                        <td>
-                            {{ $mutation->date }}
-                        </td>
+
 
 
                     </tr>

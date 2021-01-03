@@ -1,6 +1,6 @@
 @extends('desk-layout.main')
-@section('title', 'Account')
-@section('subtitle', 'Account')
+@section('title', 'Rekening')
+@section('subtitle', 'Rekening')
 @section('content')
 
 

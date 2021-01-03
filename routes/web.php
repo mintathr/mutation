@@ -19,15 +19,26 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/mutation/funds', 'MutationController@funds')->name('mutation/v_funds');
     #Route::get('/mutation/{account}/{slug}/{id}', 'MutationController@fundsedit');
     Route::get('/mutation/{id}/{bank:slug}', 'MutationController@fundsedit');
-    Route::get('/mutasi/{bank:slug}/transfer', 'MutationController@debit')->name('mutation.debit');
-    Route::get('/mutasi/{bank:slug}/topup', 'MutationController@credit')->name('mutation.credit');
-    Route::get('/mutasi/{bank:slug}/bayar', 'MutationController@bayar')->name('mutation.bayar');
-    Route::get('/mutasi/{bank:slug}/tarik', 'MutationController@tarik')->name('mutation.tarik');
+    Route::get('/mutasi/{bank:slug}/transfer/{id}', 'MutationController@debit')->name('mutation.debit');
+    Route::get('/mutasi/{bank:slug}/topup/{id}', 'MutationController@credit')->name('mutation.credit');
+    Route::get('/mutasi/{bank:slug}/bayar/{id}', 'MutationController@bayarDetail')->name('mutation.bayar_detail');
+    Route::get('/mutasi/{bank:slug}/tarik/{id}', 'MutationController@tarik')->name('mutation.tarik');
     Route::post('/mutation', 'MutationController@store');
     Route::post('/mutation/credit', 'MutationController@storeCredit');
-    Route::post('/mutation/bayar', 'MutationController@storeBayar');
+    Route::post('/mutasi/bayar', 'MutationController@storeBayarDetail');
     Route::post('/mutation/tarik', 'MutationController@storeTarik');
     Route::get('/mutation', 'MutationController@index')->name('mutation');
+
+    Route::get('/mutation/transfer', 'MutationController@transfer')->name('mutation.transfer');
+    Route::post('/mutation/transfer', 'MutationController@transferStore');
+    Route::get('/mutation/bayar', 'MutationController@bayar')->name('mutation.bayar');
+    Route::post('/mutation/bayar', 'MutationController@bayarStore');
+    Route::get('/mutation/penerimaan', 'MutationController@penerimaan')->name('mutation.penerimaan');
+    Route::post('/mutation/penerimaan', 'MutationController@penerimaanStore');
+    Route::get('/mutation/tarik-tunai', 'MutationController@tarikTunai')->name('mutation.tarik-tunai');
+    Route::post('/mutation/tarik-tunai', 'MutationController@tarikTunaiStore');
+
+
 
     /* Route::get('/mutation/create', 'MutationController@create')->name('mutation.create');
     Route::get('/mutasi-bca/{id}', 'MutationController@showbank')->name('mutation.m_bca');
@@ -45,13 +56,15 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/mutasi-ovo/{id}', 'MutationController@showbank')->name('mutation.m_ovo');
     Route::get('/mutasi-shopee-pay/{id}', 'MutationController@showbank')->name('mutation.m_shopee_pay'); */
 
+
     //bank
+    #Route::get('/banks', 'BankController@index')->name('bank.lw-index');
     Route::get('/banks', function () {
         return view('bank.lw-index');
     });
 
     //account
-    Route::get('/account', function () {
+    Route::get('/rekening', function () {
         return view('account-merchant');
     });
 

@@ -60,7 +60,7 @@
                                     {{ $loop->iteration }}
                                 </td>
                                 <td>
-                                    {{ $mutation->bank->name }}
+                                    {{ $mutation->name }}
                                 </td>
                                 <td>
                                     {{ $mutation->description }}

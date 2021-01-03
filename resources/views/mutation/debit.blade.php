@@ -1,6 +1,6 @@
 @extends('desk-layout.main')
-@section('title', 'Transfer ' .$account->name)
-@section('subtitle', 'Transfer Rekening Dari ' .$account->name)
+@section('title', 'Transfer ' . $id_account->name)
+@section('subtitle', 'Transfer Rekening Dari ' . $id_account->name)
 @section('content')
 
 <section class="content">
@@ -12,39 +12,32 @@
                     <i class="fas fa-minus"></i></button>
             </div>
         </div>
-        <form role="form" method="post" action="/mutation" enctype="multipart/form-data">
+        <form role="form" method="post" action="/mutation">
             @csrf
-            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-            <input type="hidden" name="bank_id" value="{{ $account->id }}">
-            <input type="hidden" name="bank_name" value="{{ $account->name }}">
-            <input type="hidden" name="slug" value="{{ $account->slug }}">
-            <input type="hidden" name="nominal_kredit" value="0">
+            <input type="text" name="user_id" value="{{ Auth::user()->id }}">
+            <input type="text" name="account_id" value="{{ $id_account->id }}">
+            <input type="text" name="bank_name" value="{{ $id_account->name }}">
+            <input type="text" name="slug" value="{{ $id_account->slug }}">
+            <input type="text" name="id" value="{{ $id }}">
+            <input type="text" name="nominal_kredit" value="0">
             <div class="card-body">
                 <div class="form-group">
                     <label>Rekening Tujuan</label>
-                    <select name="rek_tujuan" id="rek_tujuan" class="form-control select2bs4">
+                    <select name="account_id_to" id="account_id_to" class="form-control select2bs4">
                         <option disabled selected>--Pilih--</option>
-                        @foreach($banks as $bank)
-                        <option value="{{ $bank->id }}">{{ $bank->name }}</option>
+                        @foreach($accounts as $account)
+                        <option value="{{ $account->id }}">{{ $account->name }} - {{ $account->no_rekening }}</option>
                         @endforeach
                     </select>
-                    @error('bank')
+                    @error('account_id_to')
                     <div class="text-danger mt-2">
                         {{ $message }}
                     </div>
                     @enderror
                 </div>
+
                 <div class="form-group">
-                    <label for="description">Keterangan</label>
-                    <input type="text" name="description" id="description" class="form-control @error('description') is-invalid @enderror" oninput="this.value=this.value.replace(/[^A-Za-z0-9 ]/g,'');" placeholder="Keterangan" value="{{ old('description') }}">
-                    @error('description')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                    @enderror
-                </div>
-                <div class="form-group">
-                    <label for="debit">Debit</label>
+                    <label for="debit">Nominal</label>
                     <input type="text" name="debit" id="nominal_debit" class="form-control @error('debit') is-invalid @enderror" oninput="this.value=this.value.replace(/[^0-9]/g,'');" placeholder="Debit" value="{{ old('debit') }}">
                     @error('debit')
                     <div class="invalid-feedback">
@@ -62,8 +55,18 @@
                     </div>
                     @enderror
                 </div>
-                <h6 style="font-style: italic; color:red;">* Rekening Tujuan adalah rekening anda sendiri, yang otomatis akan bertambah.</h6>
-                <h6 style="font-style: italic; color:red;">* Pilih Others bila Rekening Tujuan milik orang lain.</h6>
+
+                <div class="form-group">
+                    <label for="description">Keterangan</label>
+                    <input type="text" name="description" id="description" class="form-control @error('description') is-invalid @enderror" oninput="this.value=this.value.replace(/[^A-Za-z0-9 ]/g,'');" placeholder="Keterangan" value="{{ old('description') }}">
+                    @error('description')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                    @enderror
+                </div>
+                <!-- <h6 style="font-style: italic; color:red;">* Rekening Tujuan adalah rekening anda sendiri, yang otomatis akan bertambah.</h6>
+                <h6 style="font-style: italic; color:red;">* Pilih Others bila Rekening Tujuan milik orang lain.</h6> -->
             </div>
 
             <!-- /.card-body -->
