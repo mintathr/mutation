@@ -106,7 +106,7 @@
                         <th>Debit</th>
                         <th>Credit</th>
                         <th>Keterangan</th>
-                        <th>Tujuan</th>
+                        <!-- <th>Tujuan</th> -->
                     </tr>
                 </thead>
                 <tbody>
@@ -127,9 +127,9 @@
                         <td>
                             {{ $mutation->description }}
                         </td>
-                        <td>
+                        <!-- <td>
                             {{ $mutation->bank_tujuan }} - {{ $mutation->no_rekening_tujuan }}
-                        </td>
+                        </td> -->
 
 
 

@@ -49,8 +49,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="credit">Kredit</label>
-                    <input type="text" name="credit" id="nominal_credit" class="form-control @error('credit') is-invalid @enderror" oninput="this.value=this.value.replace(/[^0-9]/g,'');" placeholder="Kredit" value="{{ old('credit') }}">
+                    <label for="credit">Nominal</label>
+                    <input type="text" name="credit" id="nominal_credit" class="form-control @error('credit') is-invalid @enderror" oninput="this.value=this.value.replace(/[^0-9]/g,'');" placeholder="Nominal" value="{{ old('credit') }}">
                     @error('credit')
                     <div class="invalid-feedback">
                         {{ $message }}

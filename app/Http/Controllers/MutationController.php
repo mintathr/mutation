@@ -102,7 +102,7 @@ class MutationController extends Controller
                 'e.name as bank_tujuan',
                 'd.flag as flag_tujuan'
             )
-            ->orderByRaw('created_at DESC')
+            ->orderByRaw('a.created_at DESC')
             ->get();
 
         /* $side_banks = DB::table('accounts as a')

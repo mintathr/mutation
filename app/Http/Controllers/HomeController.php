@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\{Mutation, Bank};
+//use App\{Mutation, Bank};
 use Carbon\Carbon;
-use Illuminate\Http\Request;
+//use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -46,6 +46,7 @@ class HomeController extends Controller
                 'e.name as bank_tujuan',
                 'd.flag as flag_tujuan'
             )
+            ->whereDate('a.date', Carbon::today())
             ->orderByRaw('created_at DESC')
             ->get();
 
